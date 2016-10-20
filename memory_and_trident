@@ -1,0 +1,14 @@
+s = raw_input().split()
+up = s.count('U')
+down = s.count('D')
+left = s.count('L')
+right = s.count('R')
+if (up != down):
+    vgap = abs(up-down)
+    if left == right: print '-1'
+    elif abs(left-right) != vgap: print '-1'
+    else:
+        hgap = abs(left-right)
+        
+    
+
