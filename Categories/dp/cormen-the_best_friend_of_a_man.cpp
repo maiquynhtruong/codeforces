@@ -1,3 +1,4 @@
+// CF 732B
 #include <iostream>
 using namespace std;
 
