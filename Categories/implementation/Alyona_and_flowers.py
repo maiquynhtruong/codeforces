@@ -1,4 +1,5 @@
-#http://ideone.com/LVqOYe
+# CF 740B
+# http://ideone.com/LVqOYe
 s=[]
 n,m = map(int, raw_input().split())
 a = map(int, raw_input().split())
