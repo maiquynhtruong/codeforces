@@ -1,3 +1,4 @@
+# CF 731A
 s = raw_input()
 s = map(ord, list(s))
 a = ord('a')
