@@ -15,3 +15,9 @@ for i in range(len(a)):
 	if sign[i] < 0 and abs(sign[i]) == i + 1: c = c + 1
 if sign[n-1] > 0 and sign[n-sign[n-1]] == 1: c = c + sign[n-1]
 print c
+
+# Better version - from merolish
+n = int(raw_input())
+a = list(raw_input())
+if '<' not in a or '>' not in a: print n
+else: print a.find('>') + (n - (s.rfind('<') + 1))
