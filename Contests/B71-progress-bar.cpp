@@ -13,3 +13,14 @@ int main() {
 	for (int i = l + 1; i < n; i++) cout << 0 << " ";
 	return 0;
 }
+/**
+A brilliant solution
+n, k, t = map(int, raw_input().split())
+t = t * n * k / 100
+while n:
+	n -= 1
+	x = min(t, k)
+	print x,
+	t -= x
+	
+**/
