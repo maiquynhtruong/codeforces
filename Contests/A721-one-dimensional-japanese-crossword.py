@@ -15,3 +15,10 @@ if s[n-1] == 'B':
 	cntA.append(cnt)
 print k
 for i in range(len(cntA)): print cntA[i],
+	
+	
+#Just found a brilliantly short solution using filter
+input()
+v = filter(None, raw_input().split('W')
+print len(v)
+for x in map(len, v): print x,
