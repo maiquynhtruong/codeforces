@@ -17,3 +17,9 @@ while j < n:
 	else: break
 if i < n - 1 and j < n - 1: print 'NO'
 else: print 'YES'
+
+# There's a smarter way to do anything
+n = input()
+a = sorted(set(map(int, raw_input().split())))
+l = len(s)
+print ['NO', 'YES'][t < 3 or (t == 3 and z[0] + z[2] == 2 * z[1])]
