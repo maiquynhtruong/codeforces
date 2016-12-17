@@ -16,3 +16,12 @@ if (time % k + d[m]) % k == 0: slow -= 1
 # print time, time / k, time % k, slow
 print fast,
 print fast - 1 + d[m] + slow * 5
+
+# As always, there exists some brilliant solutions
+I=raw_input
+n,k=map(int,I().split())
+a=sorted(len(raw_input()) for i in range(n))
+p=len(I())
+t=a.index(p)
+a,b=t,t+a.count(p)
+print(1+a+a//k*5,b+(b-1)//k*5)
