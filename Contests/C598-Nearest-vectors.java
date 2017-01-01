@@ -1,0 +1,72 @@
+/* package whatever; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+import java.math.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Ideone
+{
+	static class Vector implements Comparable<Vector> {
+		int x, y, i;
+		Vector(int x, int y, int i) {this.x = x; this.y = y; this.i = i;}
+		int lenSqr() {
+			return x*x + y*y;
+		}
+		// cross product of two 2d vectors is like that of 3d vectors with z component = 0
+		// http://blackpawn.com/texts/pointinpoly/default.html
+		int crossProduct(Vector b) {
+			return this.x*b.y - this.y*b.x;
+		}
+		boolean upperQuadrant(Vector v) {
+			return v.y > 0 || v.y == 0 && v.x > 0;
+		}
+		public int compareTo(Vector b) {
+			boolean upA = upperQuadrant(this);
+			boolean upB = upperQuadrant(b);
+			if (!upA && upB) return -1;
+			else if (upA && !upB) return -1;
+			else return crossProduct(b) > 0 ? -1 : 1;
+		}
+	}
+	
+	static class Rational implements Comparable<Rational> {
+		long p, q;
+		Rational(Vector a, Vector b) {
+			long p = a.x*b.x + a.y*b.y;
+			p *= p * (p > 0 ? 1 : -1);
+			long q = a.lenSqr() * b.lenSqr();
+		}
+		
+		public int compareTo(Rational b) {
+			BigInteger product1 = BigInteger.valueOf(p).multiply(BigInteger.valueOf(b.q));
+			BigInteger product2 = BigInteger.valueOf(q).multiply(BigInteger.valueOf(b.p));
+			return product2.compareTo(product1);
+		}
+	}
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		BufferedReader b = new BufferedReader(new InputStreamReader(System.in));
+		int n = Integer.parseInt(b.readLine());
+		Vector[] vectors = new Vector[n];
+		for (int i = 0; i < n; i++) {
+			String[] temp = b.readLine().split(" ");
+			vectors[i] = new Vector(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), i+1);
+		}
+		Arrays.sort(vectors);
+		Rational cur = new Rational(vectors[0], vectors[n-1]);
+		int imin = vectors[0].i, jmin = vectors[n-1].i;
+		
+		for (int i = 1; i < n; i++) {
+			Rational r1 = new Rational(vectors[i], vectors[i-1]);
+			if (r1.compareTo(cur) < 0) {
+				cur = r1;
+				imin = vectors[i].i;
+				jmin = vectors[i].i;
+			}
+		}
+		
+		System.out.println(imin + " " + jmin);
+	}
+}
