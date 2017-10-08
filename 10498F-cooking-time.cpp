@@ -1,40 +1,48 @@
 #include <bits/stdc++.h> 
-#define LL long long
+# define LL long long 
 using namespace std;
-int test, n, k, d;
+bool debug = false;
+set<LL> s;
+map<int, LL> nextMap;
+int test, n, k, nxt[100005];
 LL a[100005];
-int main() {
-	cin >> test;
-	while (test--) {
-		cin >> n >> k;	
-		int ans = k;
-		set<LL> next, cur;
-		for (int i = 1; i <= n; i++) {
-			cin >> a[i];
-		}
-		for (int i = 1; i <= k; i++) { cur.insert(a[i]);}
-		for (int i = k+2; i <= n; i++) { next.insert(a[i]);}
-		set<LL> diff;
- 
-		for (int i = k+1; i <= n; i++) {
-			// cout << a[i] << "\n";
-			next.erase(a[i]); if (i+k <= n) next.insert(a[i+k]); //diff.clear();
-			// cout << "cur: "; for (set<LL>::iterator it = cur.begin(); it != cur.end(); it++) { cout << *it << " ";} cout << "\n";
-			// cout << "next: "; for (set<LL>::iterator it = next.begin(); it != next.end(); it++) { cout << *it << " ";} cout << "\n";
-			if (cur.find(a[i]) == cur.end()) {
-				// set_difference(cur.begin(), cur.end(), next.begin(), next.end(), inserter(diff, diff.end()));
-				// if (!diff.empty()) d = *(diff.begin()); else d = *(cur.end());
-				d = *(cur.end());
-				for (set<LL>::iterator it = cur.begin(); it != cur.end(); it++) {
-					if (next.find(*it) == next.end()) { d = *it; break;}
-				}
-				// cout << "diff: "; for (set<LL>::iterator it = diff.begin(); it != diff.end(); it++) { cout << *it << " ";} cout << "\n";
-				cur.erase(d); cur.insert(a[i]);
-				ans++;
-			}
-		}
- 
-		cout << ans << "\n";
+struct PairComparator {
+	bool operator() (const pair<int, int> &a,  const pair<int, int> &b) {
+		return a.second < b.second;
 	}
-	return 0;
+};
+priority_queue<pair<int, int> > pq;
+int main() {
+	// ifstream cin("cooking-time.inp");
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cin >> test;
+    while (test--) {
+    	cin >> n >> k;
+    	s.clear();
+    	for (int i = 1; i <= n; i++) {
+    		cin >> a[i];
+    	}
+    	for (int i = n; i >= 1; i--) {
+    		if (nextMap.find(a[i]) == nextMap.end()) {
+    			nxt[i] = i;
+    		} else {
+    			nxt[i] = nextMap[a[i]];
+    		}
+    		nextMap[a[i]] = i;
+    	}
+    	int open = 0;
+    	for (int i = 1; i <= n; i++) {
+    		if (s.find(a[i]) == s.end()) {
+    			if (s.size() == k) {
+    				pair<int, int> p = pq.top(); pq.pop();
+    				s.erase(p.first);	
+    			}
+    			s.insert(a[i]);
+    			open++;
+    		}
+    		pq.push(make_pair(a[i], nxt[i]));
+    	}
+    	cout << open << "\n";
+    }
 }
